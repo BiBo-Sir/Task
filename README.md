@@ -44,3 +44,11 @@ Task在线程池的基础上进行了优化，并提供了更多的API
 　　任务的状态:
 　　Start之前为:Running
 　　Start之后为:Running
+  
+  带返回值的方式
+　　方式4:
+　　Task<int> task = CreateTask("Task 1");
+　　task.Start(); 
+　　int result = task.Result;
+	
+	
