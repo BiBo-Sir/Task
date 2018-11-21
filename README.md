@@ -51,4 +51,5 @@ Task在线程池的基础上进行了优化，并提供了更多的API
 　　task.Start(); 
 　　int result = task.Result;
 	
-	
+异步编程async await
+await 运算符应用于异步方法中的任务，在方法的执行中插入挂起点，直到所等待的任务完成。 任务表示正在进行的工作。
