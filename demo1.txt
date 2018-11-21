@@ -8,22 +8,29 @@ namespace Task2
     {
         static void Main(string[] args)
         {
+            //方式1   创建Task:t1 t2 
             var t1 = new Task(() => TaskMethod(" 1"));
             var t2 = new Task(() => TaskMethod(" 2"));
             t2.Start();
             t1.Start();
-            Task.WaitAll(t1, t2);
+            Task.WaitAll(t1, t2);//等待t1 t2执行完毕，t1 t2并行运行
+            
+            //方式2   创建Task t3并启动
             Task.Run(() => TaskMethod(" 3"));
 
+            //创建Task t4并启动
             Task.Factory.StartNew(() => TaskMethod(" 4"));
 
             //标记为长时间运行任务,则任务不会使用线程池,而在单独的线程中运行。
+            //方式3   创建Task5并启动
             Task.Factory.StartNew(() => TaskMethod(" 5"), TaskCreationOptions.LongRunning);
+            
             Console.WriteLine();
 
             #region 常规的使用方式
             Console.WriteLine("主线程执行业务处理.");
-            //创建任务
+            
+            //（同）方式1  创建Task
             Task task = new Task(() =>
             {
                 Console.WriteLine("使用System.Threading.Tasks.Task执行异步操作.");
@@ -34,7 +41,9 @@ namespace Task2
             });
 
             //启动任务,并安排到当前任务队列线程中执行任务(System.Threading.Tasks.TaskScheduler)
-            task.Start();
+            task.Start();//启动Task
+            
+            //和上面Task t3 t4 t5并行关系
             Console.WriteLine("主线程执行其他处理");
             task.Wait();
             #endregion
@@ -52,6 +61,7 @@ namespace Task2
 }
 
 执行结果：
+1）
 Task  2 is running, the thread id 3. Pool thread: True
 Task  1 is running, the thread id 4. Pool thread: True
 Task  3 is running, the thread id 6. Pool thread: True
@@ -72,3 +82,25 @@ Task  4 is running, the thread id 3. Pool thread: True
 9
 Task  5 is running, the thread id 7. Pool thread: False
 
+
+2）
+Task  2 is running, the thread id 3. Pool thread: True
+Task  1 is running, the thread id 5. Pool thread: True
+Task  3 is running, the thread id 3. Pool thread: True
+Task  4 is running, the thread id 3. Pool thread: True
+
+主线程执行业务处理.
+Task  5 is running, the thread id 7. Pool thread: False
+主线程执行其他处理
+使用System.Threading.Tasks.Task执行异步操作.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+3）.....
