@@ -20,7 +20,6 @@ FCL ： .Net Framework Class Library
 	ThreadPool不支持线程的取消、完成、失败通知等交互性操作；
 	
 	ThreadPool不支持线程执行的先后次序；
-　
 	
 创建Task：
 
@@ -54,5 +53,40 @@ FCL ： .Net Framework Class Library
 	task.Start(); 
 	int result = task.Result;
 	
-异步编程async await
-await 运算符应用于异步方法中的任务，在方法的执行中插入挂起点，直到所等待的任务完成。 任务表示正在进行的工作。
+async await：
+
+在遇到awiat关键字之前，程序是按照代码顺序自上而下以同步方式执行的。
+在遇到await关键字之后，系统做了以下工作：
+
+	1异步方法将被挂起
+	
+	2将控制权返回给调用者
+	
+	3使用线程池中的线程（而非额外创建新的线程）来计算await表达式的结果，所以await不会造成程序的阻塞
+	
+	4完成对await表达式的计算之后，若await表达式后面还有代码则由执行await表达式的线程（不是调用方所在的线程）继续执行这些代码
+	
+即：
+
+	（1）在async标识的方法体里面，如果没有await关键字的出现，那么这种方法和调用普通的方法没什么区别。
+	
+	（2）在async标识的方法体里面，在await关键字出现之前，还是主线程顺序调用的，直到await关键字的出现才会出现线程阻塞
+	
+	（3）await关键字可以理解为等待方法执行完毕，除了可以标记有async关键字的方法外，还能标记Task对象，表示等待该线程执行完毕。
+	所以await关键字并不是针对于async的方法，而是针对async方法所返回给我们的Task。
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
