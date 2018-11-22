@@ -1,0 +1,35 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+namespace demo2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("start");
+            CheckPersonAsync();
+            Console.WriteLine("End");
+
+            Console.ReadKey();
+        }
+
+        public static async Task CheckPersonAsync()
+        {
+            int value = 0;
+            Console.WriteLine($"value is :{value},Current Thread Id is:{Thread.CurrentThread.ManagedThreadId}");
+
+            await Task.Run(() =>
+            {
+                Thread.Sleep(2000);
+                value = 10;
+                Console.WriteLine($"value is :{value},Current Thread Id is:{Thread.CurrentThread.ManagedThreadId}");
+            });
+
+            Console.WriteLine($"value is :{value},Current Thread Id is:{Thread.CurrentThread.ManagedThreadId}");
+        }
+    }
+
+}
