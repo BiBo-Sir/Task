@@ -1,13 +1,12 @@
 参考链接：
 http://www.cnblogs.com/lonelyxmas/p/9509298.html
 
-Task任务用法：
+Task前世今生：
 
-Task用的是线程池，线程池的线程数量的有上限的，这个可以通过ThreadPool修改，我们经常会用到task.run ,new task ,和task.factory.startnew方法来创建任务。
-
-Task.Factory.StartNew(action)不是直接创建线程，创建的是任务，它有一个任务队列，然后通过任务调度器把任务分配到线程池中的空闲线程中，任务是不能被直接执行的，
-只有分配给线程才能被执行，如果任务的数量比线程池中的线程多，线程池的线程数量还没有到达上限，就会创建新线程执行任务。
-如果线程池的线程已到达上限，没有分配到线程的任务需要等待有线程空闲的时候才执行
+	Task用的是线程池，线程池的线程数量的有上限的，这个可以通过ThreadPool修改，我们经常会用到task.run ,new task ,和task.factory.startnew方法来创建任务。
+	Task.Factory.StartNew(action)不是直接创建线程，创建的是任务，它有一个任务队列，然后通过任务调度器把任务分配到线程池中的空闲线程中，任务是不能被直接执行的，
+	只有分配给线程才能被执行，如果任务的数量比线程池中的线程多，线程池的线程数量还没有到达上限，就会创建新线程执行任务。
+	如果线程池的线程已到达上限，没有分配到线程的任务需要等待有线程空闲的时候才执行
 
 
 FCL ： .Net Framework Class Library
