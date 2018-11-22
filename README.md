@@ -15,44 +15,44 @@ Task前世今生：
 
 FCL ： .Net Framework Class Library
 	
-1、Task的优势
-　　ThreadPool相比Thread来说具备了很多优势，但是ThreadPool却又存在一些使用上的不方便。比如：
-　　◆ ThreadPool不支持线程的取消、完成、失败通知等交互性操作；
-　　◆ ThreadPool不支持线程执行的先后次序；
-　　以往，如果开发者要实现上述功能，需要完成很多额外的工作，现在，FCL中提供了一个功能更强大的概念：Task。
-Task在线程池的基础上进行了优化，并提供了更多的API
+对比ThreadPool，Task的优势：
 	
+	ThreadPool不支持线程的取消、完成、失败通知等交互性操作；
 	
+	ThreadPool不支持线程执行的先后次序；
+　
 	
-创建Task
+创建Task：
+
 无返回值的方式
-　　方式1:
-　　var t1 = new Task(() => TaskMethod("Task 1"));
-　　t1.Start();
-　　Task.WaitAll(t1);//等待所有任务结束 
-　　注:
-　　任务的状态:
-　　Start之前为:Created
-　　Start之后为:WaitingToRun 
+	
+	方式1:
+	var t1 = new Task(() => TaskMethod("Task 1"));
+	t1.Start();
+	Task.WaitAll(t1);//等待所有任务结束 
+	注：任务的状态:
+	Start之前为:Created
+	Start之后为:WaitingToRun 
 
-　　方式2:
-　　Task.Run(() => TaskMethod("Task 2"));
+	方式2:
+	Task.Run(() => TaskMethod("Task 2"));
 
-　　方式3:
-　　Task.Factory.StartNew(() => TaskMethod("Task 3")); 直接异步的方法 
-　　或者
-　　var t3=Task.Factory.StartNew(() => TaskMethod("Task 3"));
-　　Task.WaitAll(t3);//等待所有任务结束
-　　注:
-　　任务的状态:
-　　Start之前为:Running
-　　Start之后为:Running
+	方式3:
+	Task.Factory.StartNew(() => TaskMethod("Task 3")); 直接异步的方法 
+	或者
+	var t3=Task.Factory.StartNew(() => TaskMethod("Task 3"));
+	Task.WaitAll(t3);//等待所有任务结束
+	注:
+	任务的状态:
+	Start之前为:Running
+	Start之后为:Running
   
   带返回值的方式
-　　方式4:
-　　Task<int> task = CreateTask("Task 1");
-　　task.Start(); 
-　　int result = task.Result;
+  
+	方式4:
+	Task<int> task = CreateTask("Task 1");
+	task.Start(); 
+	int result = task.Result;
 	
 异步编程async await
 await 运算符应用于异步方法中的任务，在方法的执行中插入挂起点，直到所等待的任务完成。 任务表示正在进行的工作。
